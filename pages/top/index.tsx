@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import TopPerson from "../../components/TopPerson";
 
+
 const Top = () => {
   const [input, setInput] = useState("");
   const [topUserList, setTopUserList] = useState([]);
@@ -41,11 +42,12 @@ const Top = () => {
       />
       <div className="userList">
         {topUserList
-          .filter((user: any) => {
-            if (!blocked.includes(user.id)) {
-              return user;
-            }
-          })
+                  .filter((user: any) => {
+                    // @ts-ignore
+                    if (!blocked.includes(user.id)) {
+                      return user;
+                    }
+                  })
           .filter((user: any) => {
             if (input === "") {
               return user;
