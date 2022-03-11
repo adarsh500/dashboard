@@ -1,6 +1,4 @@
-.container {
-  padding: 0 2rem;
-}
+
 
 .main {
   min-height: 100vh;
@@ -45,7 +43,7 @@
   font-size: 4rem;
 }
 
-.title,
+/* .title, */
 .description {
   text-align: center;
 }
@@ -54,6 +52,16 @@
   margin: 4rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
+}
+
+.btn{
+  width: 150px;
+  padding: 8px 0;
+  margin: 20px auto;
+  background: #4979ff;
+  border-radius: 4px;
+  color: red;
+  text-align: center;
 }
 
 .code {
