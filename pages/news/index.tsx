@@ -1,5 +1,7 @@
 import { GetStaticProps } from "next";
 
+import NewsCard from "../../components/NewsCard";
+
 export const getStaticProps: GetStaticProps = async () => {
   const url = "https://jsonplaceholder.typicode.com/posts";
   const res = await fetch(url);
@@ -12,14 +14,17 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const News = ({ posts }: any) => {
   return (
-    <div>
+    <div className="news">
       <h1>Latest Posts</h1>
-      {posts.map((post: any) => (
-        <div key={post.id}>
-          <h3>{post.title}</h3>
-          <p>{post.body}</p>
-        </div>
-      ))}
+      <div className="newsList">
+        {posts.map((post: any) => (
+          <NewsCard
+            key={post.id}
+            title={post.title}
+            body={post.body}
+          ></NewsCard>
+        ))}
+      </div>
     </div>
   );
 };
