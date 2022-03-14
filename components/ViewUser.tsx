@@ -1,7 +1,10 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
+import { View } from "../types";
 
-export default function ViewUser(props: any) {
+//a modal that pops up when the user's name is clicked
+export default function ViewUser(props: View) {
+  //props that are used to display data
   const { show, handleClose, name, username, email, phone, website } = props;
 
   return (

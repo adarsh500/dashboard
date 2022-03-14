@@ -1,7 +1,9 @@
 import React,{ useState } from "react";
+import { Person } from "../types";
 import ViewUser from "./ViewUser";
 
-const Person = (props: any) => {
+//component that displays users on users page
+const Person = (props: Person) => {
   const {
     blockUser,
     unblockUser,
@@ -11,13 +13,12 @@ const Person = (props: any) => {
     name,
     email,
   } = props;
-  const [star, setStar] =
-    useState("star");
-  const [block, setBlock] =
-    useState("block");
-  const [modalShow, setModalShow] =
-    useState(false);
+  const [star, setStar] = useState("star");
+  const [block, setBlock] = useState("block");
+  const [modalShow, setModalShow] = useState(false);
 
+  //a callback function that is triggered when block button
+  //is clicked
   const handleBlock = (): void => {
     if (block === "block") {
       blockUser(id);
@@ -28,6 +29,8 @@ const Person = (props: any) => {
     }
   };
 
+  //a callback function that is triggered when star button
+  //is clicked
   const handleStar = (): void => {
     if (star === "star") {
       setStar("unstar");
@@ -37,6 +40,7 @@ const Person = (props: any) => {
       unStarUser(props);
     }
   };
+  
   return (
     <div key={id} className="person">
       <h2

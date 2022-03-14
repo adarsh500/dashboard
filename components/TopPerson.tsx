@@ -1,21 +1,14 @@
 import React,{ useState } from "react";
+import { TopUser } from "../types";
 import ViewUser from "./ViewUser";
 
-const Person = (props: any) => {
-  const { blockUser, unblockUser, unStarUser, id, name, email } = props;
+//a component that displays top users
+const Person = (props: TopUser) => {
+  const { unStarUser, id, name, email } = props;
   const [star, setStar] = useState("unstar");
   const [modalShow, setModalShow] = useState(false);
 
-  // const handleBlock = () => {
-  //   if (block === "block") {
-  //     blockUser(id);
-  //     setBlock("unblock");
-  //   } else {
-  //     setBlock("block");
-  //     unblockUser(id);
-  //   }
-  // };
-
+  //a callback function to remove a top user
   const handleStar = () => {
     setStar("star");
     unStarUser(props);

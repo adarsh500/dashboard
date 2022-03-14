@@ -1,5 +1,6 @@
 import React from "react";
 
+//a card component used to display posts on news page
 export default function NewsCard(props: any) {
   const { title, body } = props;
   return (

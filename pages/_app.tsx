@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 import Link from "next/link";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  //opens the sidebar
   function openNav(): void {
     const nav = document.getElementById("mySidenav");
     if (nav) {
@@ -12,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }
 
+  //closes the sidebar
   function closeNav(): void {
     const nav = document.getElementById("mySidenav");
     if (nav) {
@@ -19,11 +21,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }
   return (
-    //this is the parent component of the app.
-    // It wraps the rest of the components
+    //this is the parent component of the app that houses navbar
+    //and the sidebar. It wraps the rest of the components
     <>
-      <div id="mySidenav" className="sidenav">
-        <a href="#" className="closebtn" onClick={closeNav}>
+      <div
+        id="mySidenav"
+        className="sidenav"
+      >
+        <a
+          href="#"
+          className="closebtn"
+          onClick={closeNav}
+        >
           &times;
         </a>
         <Link href="/">
