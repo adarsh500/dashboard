@@ -1,8 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 
 export default function ViewUser(props: any) {
-  const { show, handleClose, id, name, username, email, phone, website } =
-    props;
+  const { show, handleClose, name, username, email, phone, website } = props;
 
   return (
     <Modal show={show} onHide={handleClose}>

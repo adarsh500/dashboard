@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import TopPerson from "../../components/TopPerson";
 
-
+//This is the top users page
 const Top = () => {
   const [input, setInput] = useState("");
   const [topUserList, setTopUserList] = useState([]);
   const [blocked, setBlockedList] = useState([]);
 
   useEffect(() => {
+    //updates all the starred users from users page
     const localData = localStorage.getItem("topUser");
     if (localData) {
       let obj = JSON.parse(localData);
@@ -16,6 +17,7 @@ const Top = () => {
   }, []);
 
   useEffect(() => {
+    //fetches data of blocked users from local storage
     const localData = localStorage.getItem("blockedUsers");
     if (localData) {
       let obj = JSON.parse(localData);
@@ -24,6 +26,7 @@ const Top = () => {
   }, []);
 
   const unStarUser = (obj: any) => {
+    //function that removes top user
     let temp = topUserList;
     const index = temp.findIndex((x: any) => x.id == obj.id);
     temp.splice(index, 1);
@@ -31,6 +34,8 @@ const Top = () => {
     setTopUserList(temp);
     window.location.reload();
   };
+
+      console.log(topUserList);
 
   return (
     <div className="user">
@@ -42,12 +47,16 @@ const Top = () => {
       />
       <div className="userList">
         {topUserList
-                  .filter((user: any) => {
-                    // @ts-ignore
-                    if (!blocked.includes(user.id)) {
-                      return user;
-                    }
-                  })
+          //this filters out blocked users and display only unblocked users
+          .filter((user: any) => {
+            // @ts-ignore
+            if (!blocked.includes(user.id)) {
+              return user;
+            }
+          })
+          //this implements search functionality
+          //if search bar is empty, we display all the top users
+          //else it will match name/email of users
           .filter((user: any) => {
             if (input === "") {
               return user;

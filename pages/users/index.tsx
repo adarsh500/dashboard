@@ -1,24 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Person from "../../components/Person";
 
-export default function Users() {
+export default function Users({ users }: any) {
   const [input, setInput] = useState("");
-  const [userList, setUserList] = useState([]);
   const [displayList, setDisplayList] = useState([]);
   const [topUserList, setTopUserList] = useState([]);
+  const [block, setBlock] = useState("block");
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    await fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((data) => setUserList(data))
-      .catch((err) => console.log(err));
-  };
-
-  const blockUser = (id: number) => {
+  const blockUser = (id: number): void => {
     let temp: any = displayList;
     if (temp.includes(id)) {
       return;
@@ -28,7 +17,7 @@ export default function Users() {
     setDisplayList(temp);
   };
 
-  const unblockUser = (id: number) => {
+  const unblockUser = (id: number): void => {
     let temp = displayList;
     const isFound = (element: any) => {
       element == id;
@@ -39,7 +28,7 @@ export default function Users() {
     setDisplayList(temp);
   };
 
-  const starUser = (obj: any) => {
+  const starUser = (obj: object): void => {
     let temp: any = topUserList;
     if (temp.includes(obj)) {
       return;
@@ -49,7 +38,7 @@ export default function Users() {
     setTopUserList(temp);
   };
 
-  const unStarUser = (obj: any) => {
+  const unStarUser = (obj: object): void => {
     let temp = topUserList;
     const isFound = (element: any) => {
       element == obj;
@@ -69,7 +58,7 @@ export default function Users() {
         onChange={(event) => setInput(event.target.value)}
       />
       <div className="userList">
-        {userList
+        {users
           .filter((user: any) => {
             if (input === "") {
               return user;
@@ -95,4 +84,13 @@ export default function Users() {
       </div>
     </div>
   );
+}
+
+//enables SSR
+export async function getServerSideProps() {
+  //fetches data from server side and sends props to users page
+  const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
+  const data = await res.json();
+
+  return { props: { users: data } };
 }

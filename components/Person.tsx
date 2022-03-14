@@ -2,23 +2,13 @@ import { useState } from "react";
 import ViewUser from "./ViewUser";
 
 const Person = (props: any) => {
-  const {
-    blockUser,
-    unblockUser,
-    starUser,
-    unStarUser,
-    id,
-    name,
-    username,
-    email,
-    phone,
-    website,
-  } = props;
+  const { blockUser, unblockUser, starUser, unStarUser, id, name, email } =
+    props;
   const [star, setStar] = useState("star");
   const [block, setBlock] = useState("block");
   const [modalShow, setModalShow] = useState(false);
 
-  const handleBlock = () => {
+  const handleBlock = (): void => {
     if (block === "block") {
       blockUser(id);
       setBlock("unblock");
@@ -28,7 +18,7 @@ const Person = (props: any) => {
     }
   };
 
-  const handleStar = () => {
+  const handleStar = (): void => {
     if (star === "star") {
       setStar("unstar");
       starUser(props);
