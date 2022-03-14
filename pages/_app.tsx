@@ -1,18 +1,19 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react'
 import type { AppProps } from "next/app";
 import Link from "next/link";
 
 function MyApp({ Component, pageProps }: AppProps) {
   function openNav(): void {
-    let nav = document.getElementById("mySidenav");
+    const nav = document.getElementById("mySidenav");
     if (nav) {
       nav.style.width = "150px";
     }
   }
 
   function closeNav(): void {
-    let nav = document.getElementById("mySidenav");
+    const nav = document.getElementById("mySidenav");
     if (nav) {
       nav.style.width = "0";
     }

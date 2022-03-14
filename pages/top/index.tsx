@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import React, { useState, useEffect } from "react";
 import TopPerson from "../../components/TopPerson";
 
 //This is the top users page
@@ -11,7 +12,7 @@ const Top = () => {
     //updates all the starred users from users page
     const localData = localStorage.getItem("topUser");
     if (localData) {
-      let obj = JSON.parse(localData);
+      const obj = JSON.parse(localData);
       setTopUserList(obj);
     }
   }, []);
@@ -20,14 +21,14 @@ const Top = () => {
     //fetches data of blocked users from local storage
     const localData = localStorage.getItem("blockedUsers");
     if (localData) {
-      let obj = JSON.parse(localData);
+      const obj = JSON.parse(localData);
       setBlockedList(obj);
     }
   }, []);
 
   const unStarUser = (obj: any) => {
     //function that removes top user
-    let temp = topUserList;
+    const temp = topUserList;
     const index = temp.findIndex((x: any) => x.id == obj.id);
     temp.splice(index, 1);
     localStorage.setItem("topUser", JSON.stringify(temp));

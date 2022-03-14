@@ -1,5 +1,5 @@
 import { GetStaticProps } from "next";
-
+import React from "react";
 import NewsCard from "../../components/NewsCard";
 
 //this is a static site that displays the posts made by users
