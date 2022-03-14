@@ -1,14 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Person from "../../components/Person";
 
 export default function Users({ users }: any) {
   const [input, setInput] = useState("");
   const [displayList, setDisplayList] = useState([]);
   const [topUserList, setTopUserList] = useState([]);
-  const [block, setBlock] = useState("block");
 
   const blockUser = (id: number): void => {
-    let temp: any = displayList;
+    const temp: any = displayList;
     if (temp.includes(id)) {
       return;
     }
@@ -18,7 +17,7 @@ export default function Users({ users }: any) {
   };
 
   const unblockUser = (id: number): void => {
-    let temp = displayList;
+    const temp = displayList;
     const isFound = (element: any) => {
       element == id;
     };
@@ -29,7 +28,7 @@ export default function Users({ users }: any) {
   };
 
   const starUser = (obj: object): void => {
-    let temp: any = topUserList;
+    const temp: any = topUserList;
     if (temp.includes(obj)) {
       return;
     }
@@ -39,7 +38,7 @@ export default function Users({ users }: any) {
   };
 
   const unStarUser = (obj: object): void => {
-    let temp = topUserList;
+    const temp = topUserList;
     const isFound = (element: any) => {
       element == obj;
     };

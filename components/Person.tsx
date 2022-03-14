@@ -1,12 +1,22 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import ViewUser from "./ViewUser";
 
 const Person = (props: any) => {
-  const { blockUser, unblockUser, starUser, unStarUser, id, name, email } =
-    props;
-  const [star, setStar] = useState("star");
-  const [block, setBlock] = useState("block");
-  const [modalShow, setModalShow] = useState(false);
+  const {
+    blockUser,
+    unblockUser,
+    starUser,
+    unStarUser,
+    id,
+    name,
+    email,
+  } = props;
+  const [star, setStar] =
+    useState("star");
+  const [block, setBlock] =
+    useState("block");
+  const [modalShow, setModalShow] =
+    useState(false);
 
   const handleBlock = (): void => {
     if (block === "block") {
@@ -37,10 +47,16 @@ const Person = (props: any) => {
         {name}
       </h2>
       <p>{email}</p>
-      <button className="options star" onClick={handleStar}>
+      <button
+        className="options star"
+        onClick={handleStar}
+      >
         {star}
       </button>
-      <button className="options block" onClick={handleBlock}>
+      <button
+        className="options block"
+        onClick={handleBlock}
+      >
         {block}
       </button>
       <ViewUser
