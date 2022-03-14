@@ -23,6 +23,7 @@ const Top = () => {
     if (localData) {
       const obj = JSON.parse(localData);
       setBlockedList(obj);
+      
     }
   }, []);
 
@@ -36,14 +37,13 @@ const Top = () => {
     window.location.reload();
   };
 
-      console.log(topUserList);
 
   return (
     <div className="user">
       <h1>Top User List</h1>
       <input
         className="search"
-        placeholder="search users"
+        placeholder="search users or emails"
         onChange={(event) => setInput(event.target.value)}
       />
       <div className="userList">
@@ -51,9 +51,11 @@ const Top = () => {
           //this filters out blocked users and display only unblocked users
           .filter((user: any) => {
             // @ts-ignore
-            if (!blocked.includes(user.id)) {
-              return user;
-            }
+            if (!blocked.find(({id}) => user.id == id)) {return user}
+            // if (!blocked.includes(user.id)) {
+            //   return user;
+            // }
+
           })
           //this implements search functionality
           //if search bar is empty, we display all the top users

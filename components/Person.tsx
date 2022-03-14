@@ -9,6 +9,7 @@ const Person = (props: Person) => {
     unblockUser,
     starUser,
     unStarUser,
+    // clearBlocked,
     id,
     name,
     email,
@@ -23,9 +24,11 @@ const Person = (props: Person) => {
     if (block === "block") {
       blockUser(id);
       setBlock("unblock");
+      // clearBlocked
     } else {
       setBlock("block");
       unblockUser(id);
+      // clearBlocked
     }
   };
 

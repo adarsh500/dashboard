@@ -5,37 +5,38 @@ import Person from "../../components/Person";
 import type { NextPage } from "next";
 import { User } from "../../types";
 
-
-const Users: NextPage<{users: User[]}> = ({users}: any) => {
-  console.log(users);
-  const [input, setInput] =  useState("");
+const Users: NextPage<{ users: User[] }> = ({ users }: any) => {
+  const [input, setInput] = useState("");
   const [displayList, setDisplayList] = useState([]);
   const [topUserList, setTopUserList] = useState([]);
 
-
-  const blockUser = (id: number): void => {
-    //adds the user's id to blockedUsers list in localStorage
-    const temp = displayList;
-    // @ts-ignore
-    if (temp.includes(id)) {
-      return;
+  const blockUser = (id: number) => {
+    const now = new Date();
+    const obj = {
+      id: id,
+      expiry: now.setSeconds(now.getSeconds() + 30),
+    };
+    const temp: any = displayList;
+    {
+      temp.map((t: any) => {
+        if (t.id === id) {
+          return;
+        }
+      });
     }
-    // @ts-ignore
-    temp.push(id);
-    localStorage.setItem("blockedUsers",JSON.stringify(temp));
+    temp.push(obj);
+    localStorage.setItem("blockedUsers", JSON.stringify(temp));
     setDisplayList(temp);
   };
 
-  const unblockUser = (id: number): void => {
-    //removes the user's id in blockedUsers list in localStorage
+  const unblockUser = (id: number) => {
     const temp = displayList;
-    const isFound = (element: number) => {
-      element == id;
-    };
-    const index =temp.findIndex(isFound);
-    temp.splice(index, 1);
-    localStorage.setItem("blockedUsers", JSON.stringify(temp));
-    setDisplayList(temp);
+    temp.filter((obj: any) => {
+      return obj.id != id;
+    });
+    const newArr = temp.filter((obj: any) => obj.id != id);
+    localStorage.setItem("blockedUsers", JSON.stringify(newArr));
+    setDisplayList(newArr);
   };
 
   const starUser = (obj: object): void => {
@@ -55,22 +56,35 @@ const Users: NextPage<{users: User[]}> = ({users}: any) => {
     const isFound = (element: any) => {
       element == obj;
     };
-    const index =
-      temp.findIndex(isFound);
+    const index = temp.findIndex(isFound);
     temp.splice(index, 1);
-    localStorage.setItem("topUser",JSON.stringify(temp));
+    localStorage.setItem("topUser", JSON.stringify(temp));
     setTopUserList(temp);
   };
+
+  //this unblocks users after a set period of time. 
+  //it code works, but due to some bug it gives uncaughtException.
+
+  // const clearBlocked = () => {
+  //   const now = new Date();
+  //   console.log("hello", now.getMinutes() + " " + now.getSeconds());
+  //   console.log(now);
+  //   const newArr = displayList.filter((obj: any) => {
+  //     obj.expiry > now;
+  //   });
+  //   localStorage.setItem("blockedUsers", JSON.stringify(newArr));
+  //   setDisplayList(newArr);
+  // };
+
+  // setInterval(clearBlocked, 10000)
 
   return (
     <div className="user">
       <h1>User List</h1>
       <input
         className="search"
-        placeholder="search users"
-        onChange={(event) =>
-          setInput(event.target.value)
-        }
+        placeholder="search names or emails"
+        onChange={(event) => setInput(event.target.value)}
       />
       <div className="userList">
         {users
@@ -78,24 +92,10 @@ const Users: NextPage<{users: User[]}> = ({users}: any) => {
             if (input === "") {
               return user;
             } else {
-              if (
-                user.name
-                  .toLowerCase()
-                  .includes(
-                    input.toLowerCase()
-                  )
-              ) {
-                return user.name
-                  .toLowerCase()
-                  .includes(
-                    input.toLowerCase()
-                  );
+              if (user.name.toLowerCase().includes(input.toLowerCase())) {
+                return user.name.toLowerCase().includes(input.toLowerCase());
               }
-              return user.email
-                .toLowerCase()
-                .includes(
-                  input.toLowerCase()
-                );
+              return user.email.toLowerCase().includes(input.toLowerCase());
             }
           })
           .map((user: User) => {
@@ -103,11 +103,10 @@ const Users: NextPage<{users: User[]}> = ({users}: any) => {
               <Person
                 key={user.id}
                 blockUser={blockUser}
-                unblockUser={
-                  unblockUser
-                }
+                unblockUser={unblockUser}
                 starUser={starUser}
                 unStarUser={unStarUser}
+                // clearBlocked={clearBlocked}
                 {...user}
               />
             );
@@ -115,16 +114,14 @@ const Users: NextPage<{users: User[]}> = ({users}: any) => {
       </div>
     </div>
   );
-}
+};
 
-export default Users
+export default Users;
 
 //enables SSR
 export async function getServerSideProps() {
   //fetches data from server side and sends props to users page
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/users`
-  );
+  const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
   const data = await res.json();
 
   return { props: { users: data } };

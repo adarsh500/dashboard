@@ -15,6 +15,7 @@ export interface Person {
   unblockUser: (id: number) => void;
   starUser: (props: User) => void;
   unStarUser: (props: User) => void;
+  // clearBlocked: () => void;
   id: number;
   name: string;
   username: string;

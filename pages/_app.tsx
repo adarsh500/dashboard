@@ -20,6 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       nav.style.width = "0";
     }
   }
+
+  
   return (
     //this is the parent component of the app that houses navbar
     //and the sidebar. It wraps the rest of the components
